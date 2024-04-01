@@ -1,17 +1,17 @@
 # Raytracer P3
 
-Это третья подзадача [домашнего задания про рейтрейсер](../raytracer). В рамках этой задачи вам нужно реализовать упрощенные режимы работы рейтрейсера, которые помогут вам отловить основные ошибки при работе с камерой, трейсинге лучей и реализации геометрии.
+This is the third subtask of the [raytracer homework assignment](../raytracer). In this task, you need to implement simplified modes of the raytracer which will help you catch the main errors when working with the camera, ray tracing, and geometry implementation.
 
-Прочитайте описание основного задания перед выполнением этого. Здесь вам нужно реализовать поддержку режимов `RenderMode::kDepth` и `RenderMode::kNormal`. **Обратите внимание**, что реализация должна быть выполнена в рамках общей задачи `raytracer` (т.е. вы не пишите отдельное решение в этой задаче) --- система тестирования не отправляет файлы из этой директории. Но для сдачи этой задачи поддержка `RenderMode::kFull` не требуется.
+Read the description of the main task before performing this one. Here, you need to implement support for RenderMode::kDepth and RenderMode::kNormal. Note that the implementation must be done within the general raytracer task (i.e., you do not write a separate solution in this task) --- the testing system does not send files from this directory. However, to pass this task, support for RenderMode::kFull is not required.
 
-В режиме `RenderMode::kDepth` при трейсинге луча результирующим цветом пикселя будет расстояние до ближайшего объекта, в который попал луч. Пусть при испускании луча из камеры через очередной пиксель этот луч попадает в объект на расстоянии $`d`$. Тогда результирующим значением для этого пикселя будет тройка $`(d, d, d)`$. Обратите внимание, что в итоге для записи изображения все значения нужно привести в диапазон [0, 1]. Для этого:
+In RenderMode::kDepth mode, when tracing a ray, the resulting pixel color will be the distance to the nearest object hit by the ray. Let's say that when emitting a ray from the camera through the next pixel, this ray hits an object at a distance $d$. Then, the resulting value for this pixel will be a triplet $(d, d, d)$. Note that eventually, all values must be brought into the range [0, 1]. To do this:
 
-* Там, где луч не пересекает сцену, используйте значение (1, 1, 1).
-* Пусть максимальное расстояние по всем объектам при рейтрейсинге составило $`D`$. Тогда итоговым значением для пикселя будет тройка $`\left(\frac{d}{D}, \frac{d}{D}, \frac{d}{D}\right)`$.
+* Where the ray does not intersect the scene, use the value (1, 1, 1).
+* Let the maximum distance across all objects in ray tracing be $D$. Then, the final value for the pixel will be a triplet $\left(\frac{d}{D}, \frac{d}{D}, \frac{d}{D}\right)$.
 
-В режиме `RenderMode::kNormal` при трейсинге луча результирующим цветом будет значение нормали в точке пересечения луча с ближайшим объектом. При этом нормаль должна быть направлена в противоположную лучу сторону. Поскольку вектор нормали нормирован, то все координаты будут в диапазоне [-1, 1]. Для отображения изображения их нужно привести в диапазон [0, 1]. Для этого:
+In RenderMode::kNormal mode, when tracing a ray, the resulting color will be the value of the normal at the point of intersection of the ray with the nearest object. The normal should be directed opposite to the direction of the ray. Since the normal vector is normalized, all coordinates will be in the range [-1, 1]. To display the image, they need to be brought into the range [0, 1]. To do this:
 
-* Там, где луч не пересекает сцену, используйте значение (0, 0, 0) в качестве результата.
-* Пусть очередной вектор нормали получился равным $`\bar v`$. Тогда в качестве результата используйте $`\frac{1}{2}\bar v + \frac{1}{2}`$.
-* Для сдачи задания поменяйте содержимое этой директории (например, создав пустой файл)
-и отправте эти изменения в свой удалённый репозиторий.
+* Where the ray does not intersect the scene, use the value (0, 0, 0) as a result.
+* Let's say the normal vector obtained is $\bar v$. Then use $\frac{1}{2}\bar v + \frac{1}{2}$ as a result.
+* To submit the assignment, change the contents of this directory (for example, by creating an empty file)
+and send these changes to your remote repository.
